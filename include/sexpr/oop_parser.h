@@ -13,13 +13,16 @@ namespace sexpr::oop
     public:
         explicit Tokenizer(std::istream &stream);
 
+        /**
+         * @return next token in the stream; TokenType::end is returned when end is reached
+         */
         sexpr::common::Token next();
 
     private:
         std::istream &stream;
 
-        sexpr::common::Token collect_string();
 
+        sexpr::common::Token collect_string();
         sexpr::common::Token collect_symbol_number(char first_char);
 
 
@@ -28,12 +31,21 @@ namespace sexpr::oop
     class Sexpression
     {
     public:
+        void write_repr(std::ostream &stream) const;
         virtual void write_repr(std::ostream &stream, const std::string &indent) const = 0;
 
         virtual ~Sexpression() = default;
     };
 
     std::ostream &operator<<(std::ostream &os, const Sexpression &expression);
+
+    class Empty : public Sexpression
+    {
+    public:
+        explicit Empty();
+
+        void write_repr(std::ostream &stream, const std::string &indent) const override;
+    };
 
     class String : public Sexpression
     {

@@ -13,8 +13,7 @@ namespace sexpr::oop
     Token Tokenizer::Tokenizer::next()
     {
         char c;
-        while (stream && std::isspace(c = stream.get()));
-        if (!stream) return Token{TokenType::end, ""};
+        if (!(stream >> c)) return Token{TokenType::end, ""};
 
         switch (c)
         {
@@ -33,33 +32,31 @@ namespace sexpr::oop
     Token Tokenizer::collect_string()
     {
         std::string text{'\"'};
-        while (stream)
+        char c;
+        bool escaped = false;
+        while ((c = stream.get()) && ((c != '\"') || escaped))
         {
-            text += static_cast<char>(stream.get());
-            if ((text[text.size() - 1] == '\"') && (text[text.size() - 2] != '\\'))
-            {
-                break;
-            }
+            text += c;
+            escaped = '\\' == c;
         }
 
-        if ((text[text.size() - 1] != '\"') || (text[text.size() - 2] == '\\'))
+        if (escaped || (c != '\"'))
         {
             throw std::runtime_error(
                     "Invalid string detected, we reached the end of the stream without a closing quote"
             );
         }
 
-        return Token{TokenType::string, text};
+        return Token{TokenType::string, text + c};
     }
 
     Token Tokenizer::collect_symbol_number(char first_char)
     {
         std::string text{first_char};
         char c;
-        bool escaped = false;
-        while (stream)
+        bool escaped = '\\' == first_char;
+        while ((c = stream.get()))
         {
-            c = stream.get();
             bool parenthesis = sexpr::common::isparenthesis(c);
             if ((std::isspace(c) || parenthesis) && !escaped)
             {
@@ -76,10 +73,21 @@ namespace sexpr::oop
 
     std::ostream &operator<<(std::ostream &os, const Sexpression &expression)
     {
-        expression.write_repr(os, "");
+        expression.write_repr(os);
         return os;
     }
 
+    void Sexpression::write_repr(std::ostream & stream) const
+    {
+        write_repr(stream, "");
+    }
+
+    Empty::Empty() = default;
+
+    void Empty::write_repr(std::ostream &, const std::string &) const
+    {
+
+    }
 
     String::String(std::string text) : text{std::move(text)}
     {}
@@ -191,7 +199,7 @@ namespace sexpr::oop
             case TokenType::string:
                 return get_atom_from_token(token);
             case TokenType::end:
-                return nullptr;
+                return std::make_shared<Empty>();
             default:
                 throw std::runtime_error("Unhandled token type");
         }
@@ -208,5 +216,4 @@ namespace sexpr::oop
         std::istringstream stream{text};
         return parse(stream);
     }
-
 }

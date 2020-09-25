@@ -48,4 +48,10 @@ namespace
         EXPECT_EQ("Floating: 12.4745\n", oss.str());
     }
 
+    TEST(OOPParser, Empty)
+    {
+        std::ostringstream oss;
+        oss << *parse("");
+        EXPECT_EQ("", oss.str());
+    }
 }
