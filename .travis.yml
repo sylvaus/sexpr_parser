@@ -1,0 +1,30 @@
+language: cpp
+dist: bionic
+sudo: required
+arch:
+  - amd64
+  - arm64
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+      packages:
+        - gcc-7
+        - g++-7
+
+os:
+  - linux
+
+script:
+  - git clone --branch release-1.10.0 https://github.com/google/googletest.git
+  - cd googletest
+  - cmake .
+  - make
+  - sudo make install
+  - cd ..
+  - mkdir build && cd build
+  - cmake .. -DTESTS=1
+  - make
+  - ./tests

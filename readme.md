@@ -1,5 +1,7 @@
 S-expression parser
 ===================
+[![Build Status](https://travis-ci.org/sylvaus/sexpr_parser.svg?branch=master)](https://travis-ci.org/sylvaus/sexpr_parser)
+
 
 Implementation of an S-expression parser
 
@@ -87,11 +89,12 @@ Usage
 
 TODO
 ----
-* Add travis CI/CD
-* Implement the functional version 
-* Implement the minimal viable product version 
 * Add docstrings
+* Implement the functional version 
+* Implement the minimal viable product version
+* Add benchmark to see the best implementation for a given situation
 * Implement proper handling of invalid S-epression
+* Add coverall on the UT
 * Improve the Unit-testing
 
 
