@@ -16,7 +16,6 @@ namespace sexpr::oop
         while (stream && std::isspace(c = stream.get()));
         if (!stream) return Token{TokenType::end, ""};
 
-
         switch (c)
         {
             case '(':
@@ -140,22 +139,14 @@ namespace sexpr::oop
         }
         if (token.type == TokenType::symbol_number)
         {
-            std::size_t pos;
-            try
             {
-                int64_t value = std::stol(token.text, &pos);
-                if (pos == token.text.size())  return std::make_shared<Integer>(value);
+                const auto[success, value] = sexpr::common::convert_to_int64(token.text);
+                if (success) return std::make_shared<Integer>(value);
             }
-            catch (std::invalid_argument &)
-            {}
-            try
             {
-                double value = std::stod(token.text, &pos);
-                if (pos == token.text.size())  return std::make_shared<Floating>(value);
+                const auto[success, value] = sexpr::common::convert_to_double(token.text);
+                if (success) return std::make_shared<Floating>(value);
             }
-            catch (std::invalid_argument &)
-            {}
-            //TODO: the out of range exception is let go but adding a proper handling could be welcomed
             return std::make_shared<Symbol>(token.text);
         }
         throw std::runtime_error("Given token was not an s-expression atom");

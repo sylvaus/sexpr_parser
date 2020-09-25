@@ -36,7 +36,7 @@ Compilation
 Tested on: WSL Ubuntu 18.04, g++ 7.5.0
 
 Pre-requisites:
-* g++
+* g++-7
 * cmake
 * (optional for test only) [gtest](https://github.com/google/googletest/blob/master/googletest/README.md): install from source version 1.10.0
 
@@ -49,10 +49,14 @@ Run the following commands in the sexpr_parser folder:
 Optional: Run test
 * `./tests`
 
+Note: 
+UT are compiled and run, on both amd64 amd arm64, every time a push is made.   
+The test results can be found on [travis](https://travis-ci.org/github/sylvaus/sexpr_parser)
+
 
 arm64 Cross-Compilation
 -----------------------
-Tested on: WSL Ubuntu 18.04 (compilation) / RPI 3B (execution)
+Tested on: WSL Ubuntu 18.04 (compilation) / RPI 3B Ubuntu 20.04 (execution)
 
 Pre-requisites:
 * cmake
@@ -90,12 +94,12 @@ Usage
 TODO
 ----
 * Add docstrings
+* Add more edge cases to the UT
 * Implement the functional version 
 * Implement the minimal viable product version
 * Add benchmark to see the best implementation for a given situation
-* Implement proper handling of invalid S-epression
+* Implement proper handling of invalid S-expression
 * Add coverall on the UT
-* Improve the Unit-testing
 
 
 Resources
