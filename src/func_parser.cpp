@@ -19,7 +19,7 @@ namespace sexpr::func
         std::string text{'\"'};
         char c;
         bool escaped = false;
-        while ((c = stream.get()) && ((c != '\"') || escaped))
+        while (stream.get(c) && ((c != '\"') || escaped))
         {
             text += c;
             escaped = '\\' == c;
@@ -40,7 +40,7 @@ namespace sexpr::func
         std::string text{first_char};
         char c;
         bool escaped = '\\' == first_char;
-        while ((c = stream.get()))
+        while (stream.get(c))
         {
             bool parenthesis = sexpr::common::isparenthesis(c);
             if ((std::isspace(c) || parenthesis) && !escaped)

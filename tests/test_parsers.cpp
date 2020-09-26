@@ -70,6 +70,14 @@ namespace
         EXPECT_EQ("", oss.str());
     }
 
+    TEST_P(AllParsersTests, NonClosedString)
+    {
+        auto func = GetParam();
+        std::ostringstream oss;
+
+        EXPECT_THROW({func(oss, "(() (a \"b\" x) (\"dfjsdf jksdjfk))");} , std::runtime_error);
+    }
+
     INSTANTIATE_TEST_SUITE_P(AllPrasers, AllParsersTests, Values(
             [](std::ostream &os, const std::string& text) {os << *sexpr::oop::parse(text);},
             [](std::ostream &os, const std::string& text) {sexpr::mvp::write_repr(os, text);},

@@ -9,7 +9,7 @@ namespace sexpr::mvp
         os << "String: \"";
         char c;
         bool escaped = false;
-        while ((c = is.get()) && ((c != '\"') || escaped))
+        while (is.get(c) && ((c != '\"') || escaped))
         {
             os << c;
             escaped = '\\' == c;
@@ -29,7 +29,7 @@ namespace sexpr::mvp
         std::string text{first_char};
         char c;
         bool escaped = '\\' == first_char;
-        while ((c = is.get()))
+        while (is.get(c))
         {
             bool parenthesis = sexpr::common::isparenthesis(c);
             if ((std::isspace(c) || parenthesis) && !escaped)

@@ -22,7 +22,8 @@ int main(int argc, char ** argv)
     }
     catch (std::runtime_error& e)
     {
-        std::cerr << "Could not parse the given file: " << argv[1] << std::endl;
+        std::cerr << "Could not parse the given file: " << argv[1]
+                  << "\nError: " << e.what() << std::endl;
         return -1;
     }
     return 0;
