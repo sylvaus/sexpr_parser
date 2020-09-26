@@ -2,6 +2,7 @@
 #include "constants.h"
 #include "sexpr/oop_parser.h"
 #include "sexpr/mvp_parser.h"
+#include "sexpr/func_parser.h"
 
 namespace
 {
@@ -71,7 +72,7 @@ namespace
 
     INSTANTIATE_TEST_SUITE_P(AllPrasers, AllParsersTests, Values(
             [](std::ostream &os, const std::string& text) {os << *sexpr::oop::parse(text);},
-            [](std::ostream &os, const std::string& text) {sexpr::mvp::write_repr(os, text);}
-
+            [](std::ostream &os, const std::string& text) {sexpr::mvp::write_repr(os, text);},
+            [](std::ostream &os, const std::string& text) {sexpr::func::write_repr(os, sexpr::func::parse(text));}
     ));
 }

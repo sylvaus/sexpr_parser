@@ -104,7 +104,6 @@ TODO
 ----
 * Add docstrings
 * Add more edge cases to the UT
-* Implement the functional version 
 * Add benchmark to see the best implementation for a given situation
 * Implement proper handling of invalid S-expression
 * Add coverall on the UT

@@ -147,14 +147,12 @@ namespace sexpr::oop
         }
         if (token.type == TokenType::symbol_number)
         {
-            {
-                const auto[success, value] = sexpr::common::convert_to_int64(token.text);
-                if (success) return std::make_shared<Integer>(value);
-            }
-            {
-                const auto[success, value] = sexpr::common::convert_to_double(token.text);
-                if (success) return std::make_shared<Floating>(value);
-            }
+            const auto[success_int, value_int] = sexpr::common::convert_to_int64(token.text);
+            if (success_int) return std::make_shared<Integer>(value_int);
+
+            const auto[success_double, value_double] = sexpr::common::convert_to_double(token.text);
+            if (success_double) return std::make_shared<Floating>(value_double);
+
             return std::make_shared<Symbol>(token.text);
         }
         throw std::runtime_error("Given token was not an s-expression atom");
