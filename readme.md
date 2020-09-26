@@ -30,6 +30,15 @@ The approach taken is similar to the one used for parsing a programming language
 First a tokenization/lexing is done to get a list of string with a meaning and then 
 the parsing is done on the generated token to generate the desired output
 
+3 designs approaches are investigated:
+* OOP: OOP seems a nice approach has the specific class representing the atom can be given 
+    specific behavior and can be easily extended
+* MVP: The opposite approach to OOP where the goal is to write the minimum amount of maintainable code that 
+    answers the requirements
+* Functional: Trying to avoid as much as possible side effects
+
+The 3 approaches will be tested on the same set of UT to ensure that they all match the requirements:
+see [test_parser.cpp](tests/test_parsers.cpp)
 
 Compilation
 -----------
@@ -96,7 +105,6 @@ TODO
 * Add docstrings
 * Add more edge cases to the UT
 * Implement the functional version 
-* Implement the minimal viable product version
 * Add benchmark to see the best implementation for a given situation
 * Implement proper handling of invalid S-expression
 * Add coverall on the UT
