@@ -131,7 +131,7 @@ namespace sexpr::func
             case TokenType::string:
                 return get_atom_from_token(token);
             case TokenType::end:
-                return Sexpression{SexprType::none, 0l};
+                return Sexpression{SexprType::none, static_cast<int64_t>(0)};
             default:
                 throw std::runtime_error("Unhandled token type");
         }

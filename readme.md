@@ -85,13 +85,21 @@ You may have to use the following command: `export QEMU_LD_PREFIX=/usr/arm-linux
 
 Pre-requisites:
 * cmake
-* crossbuild-essential-arm32
+* crossbuild-essential-armhf
 
 Download and unzip or git clone this repository
 Run the following commands in the sexpr_parser folder:
 * `mkdir build && cd build`
 * `cmake .. -DCMAKE_TOOLCHAIN_FILE=toolchains/arm.cmake` 
 * `make`
+
+Compile with Docker
+-------------------
+Still being tested with docker engine 19.03.12 on Windows using WSL2
+
+Running the command `docker-compose up` should compile the sexpr_parser for the 
+targets: amd64, aarch64 and arm32.  
+The executable should be copied to this folder with their architecture prefixing sexpr_parser
 
 
 Usage 
@@ -106,6 +114,7 @@ TODO
 * Add benchmark to see the best implementation for a given situation
 * Implement proper handling of invalid S-expression
 * Add coverall on the UT
+* Improve Docker documentation and configuration files
 
 
 Resources

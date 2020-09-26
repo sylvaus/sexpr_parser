@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  builder:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    entrypoint: /usr/src/code/scripts/docker_build_script.sh
+
+    volumes:
+      - ./:/usr/src/code
