@@ -102,7 +102,6 @@ Usage
 
 TODO
 ----
-* Add docstrings
 * Add more edge cases to the UT
 * Add benchmark to see the best implementation for a given situation
 * Implement proper handling of invalid S-expression

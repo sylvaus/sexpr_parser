@@ -31,7 +31,18 @@ namespace sexpr::oop
     class Sexpression
     {
     public:
+        /**
+         * Write the representation of the S-expression to the stream
+         *
+         * @param stream Stream to write the S-expression representation to
+         */
         void write_repr(std::ostream &stream) const;
+
+        /**
+         * Write the representation of the S-expression to the stream indented with the given indentation
+         *
+         * @param stream Stream to write the S-expression representation to
+         */
         virtual void write_repr(std::ostream &stream, const std::string &indent) const = 0;
 
         virtual ~Sexpression() = default;
@@ -105,10 +116,22 @@ namespace sexpr::oop
     };
 
 
-    std::shared_ptr<Sexpression> parse(Tokenizer &tokenizer);
-
+    /**
+     * Parse the S-expression text in the input stream
+     *
+     * @param stream Input stream containing the S-expression text
+     * @return Shared pointer to the parsed S-expression
+     * @throw runtime_error if an error is detected in the parsing
+     */
     std::shared_ptr<Sexpression> parse(std::istream &stream);
 
+    /**
+     * Parse the S-expression text
+     *
+     * @param text Text containing the S-expression
+     * @return Shared pointer to the parsed S-expression
+     * @throw runtime_error if an error is detected in the parsing
+     */
     std::shared_ptr<Sexpression> parse(const std::string &text);
 }
 
